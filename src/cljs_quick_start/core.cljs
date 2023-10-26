@@ -2,5 +2,5 @@
   (:require react-dom))
 
 (.render js/ReactDOM
-         (.createElement js/React "h2" nil "Hello, React!")
+         (.createElement js/React "h2" nil "Hello, Hello!")
          (.getElementById js/document "app"))
