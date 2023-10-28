@@ -7,4 +7,4 @@
 
  :builds {:node {:target :node-script
                  :output-to "out/index.js"
-                 :main cljs-quick-start.core/main}}}
+                 :main hello-world.core/main}}}
