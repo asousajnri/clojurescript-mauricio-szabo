@@ -4,13 +4,18 @@
 (def app (express))
 (def port 3000)
 
-(defn handle-root [req res]
-  (. res send "Hello, the whole world!"))
+(defn- send-result [res data]
+  (. res send (:body data)))
+
+(defn handle-root-2 [req]
+  {:body "Hello, World two!"})
+
+(defn- register-get [app handler]
+  (. app get "/" (fn [req res]
+                   (send-result res (handler req)))))
 
 (defn register-handlers []
-  (. app get "/"
-    (fn [req res] (handle-root req res)))
-
+  (register-get app handle-root-2)
   (. app listen port (fn []
                        (println "Example app listenning on port" port))))
 
