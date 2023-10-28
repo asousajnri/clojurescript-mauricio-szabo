@@ -1,0 +1,10 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src" "test"]
+
+ :dependencies [[compliment "0.4.0-SNAPSHOT"]
+                [org.rksm/suitable "0.4.1"]]
+
+ :builds {:node {:target :node-script
+                 :output-to "out/index.js"
+                 :main cljs-quick-start.core/main}}}
