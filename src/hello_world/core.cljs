@@ -1,5 +1,6 @@
 (ns hello-world.core
-  (:require ["express" :as express]))
+  (:require ["express" :as express]
+            [promesa.core :as p]))
 
 (def app (express))
 (def port 3000)
@@ -7,17 +8,18 @@
 (defn- send-result [res data]
   (. res send (:body data)))
 
+(def global-promise (p/deferred))
+
+(p/resolve! global-promise
+  {:body "Hello, world inside a promise!"})
+
 (defn handle-root-2 [req]
-  (. js/Promise resolve
-    {:body "Hello, world inside a promise!"}))
+  global-promise)
 
 (defn- register-get [app handler]
   (. app get "/" (fn [req res]
-                   (let [response-promise-maybe (handler req)]
-                     (if (.-then response-promise-maybe)
-                       (.then response-promise-maybe
-                         (fn [response] (send-result res response)))
-                       (send-result res response-promise-maybe))))))
+                   (p/let [response (handler req)]
+                     (send-result res response)))))
 
 (defn register-handlers []
   (register-get app handle-root-2)

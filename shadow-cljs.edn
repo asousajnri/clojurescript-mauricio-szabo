@@ -3,7 +3,8 @@
  ["src" "test"]
 
  :dependencies [[compliment "0.4.0-SNAPSHOT"]
-                [org.rksm/suitable "0.4.1"]]
+                [org.rksm/suitable "0.4.1"]
+                [funcool/promesa "11.0.678"]]
 
  :builds {:node {:target :node-script
                  :output-to "out/index.js"
